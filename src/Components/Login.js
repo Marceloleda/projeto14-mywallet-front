@@ -14,7 +14,7 @@ export default function Login(){
     })
     function enviarLogin(event){
         event.preventDefault();
-        const URL = `http://localhost:5000/login`;
+        const URL = `http://localhost:5000/`;
         const dados = {
             email: login.email,
             senha: login.senha
@@ -59,7 +59,7 @@ export default function Login(){
                 </Forms>
 
                 <Cadastro>
-                    <Link to={"/sign-up"} style={{ textDecoration: 'none' }}>
+                    <Link to={"/cadastro"} style={{ textDecoration: 'none' }}>
                         <h2>Primeira vez? Cadastre-se!</h2>
                     </Link>
                 </Cadastro>

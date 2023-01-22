@@ -1,4 +1,5 @@
 import Login from "./Components/Login"
+import Cadastro from "./Components/Cadastro";
 
 import { createGlobalStyle } from "styled-components";
 import { Route, Routes } from "react-router-dom";
@@ -14,6 +15,8 @@ function App() {
       <UserContext.Provider value={contextValue}>
         <Routes>
           <Route path="/" element={<Login/>}/>
+          <Route path="/cadastro" element={<Cadastro/>}/>
+
         </Routes>
       </UserContext.Provider>
     </>
