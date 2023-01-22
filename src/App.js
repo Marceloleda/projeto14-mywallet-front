@@ -1,10 +1,11 @@
-import Login from "./Components/Login"
-import Cadastro from "./Components/Cadastro";
-
 import { createGlobalStyle } from "styled-components";
 import { Route, Routes } from "react-router-dom";
 import UserContext from "./Contexts/UserContext";
 import { useState } from "react";
+
+import Login from "./Components/Login"
+import Cadastro from "./Components/Cadastro";
+import Home from "./Components/Home";
 
 function App() {
   const [tasks, setTasks] = useState([])
@@ -16,7 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login/>}/>
           <Route path="/cadastro" element={<Cadastro/>}/>
-
+          <Route path="/home" element={<Home/>}/>
         </Routes>
       </UserContext.Provider>
     </>
