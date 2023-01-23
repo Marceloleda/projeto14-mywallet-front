@@ -16,7 +16,7 @@ export default function Nova_saida(){
     
     function SendPositive(event){
         const config = {
-            headers: { Authorization: `Bearer${token}` }
+            headers: { Authorization: `Bearer ${token}` }
         };
         event.preventDefault();
         const URL = `http://localhost:5000/nova-saida`;

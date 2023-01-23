@@ -10,7 +10,6 @@ import UserContext from "../Contexts/UserContext";
 export default function Home(){
     const navigate = useNavigate();
     const [dados, setDados] = useState([]);
-
     const [user, setUser] = useState({})
    
 
@@ -39,8 +38,6 @@ export default function Home(){
         })
     },[])
 
-    console.log(dados.entrada)
-
     return(
         <>
             <Conteiner>
@@ -61,9 +58,9 @@ export default function Home(){
                                 const data = e.data;
                                 const descricao = e.descricao;
                                 const valor = e.valor;
-                                const valorFormatado = valor.toLocaleString('pt-BR', { minimumFractionDigits: 2})
+                                const valorFormatado = valor.toLocaleString('pt-BR', { minimumFractionDigits: 2});
                                 const tipo = e.tipo;
-                                console.log(e)
+                                console.log(valorFormatado)
                           
                                 return(
                                     <>  
@@ -81,10 +78,10 @@ export default function Home(){
                             })
                     }
                     <Saldo>
-                        {dados.dinheiro === true?
+                        {dados.entrada?.length != 0?
                             <>
                                 <h1>SALDO </h1>
-                                <h2>{dados.cash}</h2>
+                                <h2>{user.saldo}</h2>
                             </>:''
                         }
 
@@ -191,6 +188,7 @@ const Saida = styled.div`
     cursor:pointer;
 `
 const Saldo = styled.div`
+    position: fixed;
     font-family: 'Raleway';
     font-size: 17px;
     h1{
@@ -201,9 +199,9 @@ const Saldo = styled.div`
     display:flex;
     align-items:center;
     width: 306px;
-    height:50px;
+    height:0px;
     justify-content: space-between;
-    margin-top:390px;
+    margin-top:320px;
 `
 const Semsaldo = styled.div`
     display:flex;

@@ -7,19 +7,18 @@ export default function Nova_entrada(){
 
     const token = localStorage.getItem("token")
 
-
     const navigate = useNavigate();
 
     const [entrada, setEntrada] = useState({
         valor: '',
-        descricao:"",
+        descricao:""
     });
     
     function SendPositive(event){
-        const config = {
-            headers: { Authorization: `Bearer${token}` }
-        };
         event.preventDefault();
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        };
         const URL = `http://localhost:5000/nova-entrada`;
 
         const promise = axios.post(URL, entrada, config)
