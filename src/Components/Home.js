@@ -59,9 +59,11 @@ export default function Home(){
                                 const descricao = e.descricao;
                                 const valor = e.valor;
                                 const valorFormatado = valor.toLocaleString('pt-BR', { minimumFractionDigits: 2});
+
+
                                 const tipo = e.tipo;
                                 console.log(valorFormatado)
-                          
+                        //   console.log(typeof(user.saldo))
                                 return(
                                     <>  
                                         <div key={index}>
@@ -70,7 +72,7 @@ export default function Home(){
                                                     <h3>{`${data }`} &nbsp;</h3>
                                                     <h1>{`${descricao}`}</h1>
                                                 </Descricao>
-                                                <h2>{valorFormatado}</h2>
+                                                <h2>{valor}</h2>
                                             </Extrato>
                                         </div>
                                     </>
