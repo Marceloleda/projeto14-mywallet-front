@@ -22,12 +22,13 @@ export default function Login(){
         const promise =axios.post(URL, dados)
         promise.then((response)=>{
             // const {token} = response.data
-            
+            localStorage.setItem("token", response.data)
+
             setTasks({...tasks, 
                 online: true,
                 token: response.data
             })
-            navigate('/wallet')
+            navigate('/home')
         })
 
         promise.catch(err => {

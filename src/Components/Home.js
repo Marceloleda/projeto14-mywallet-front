@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import {RiLogoutBoxRLine} from "react-icons/ri";
@@ -9,35 +9,28 @@ import UserContext from "../Contexts/UserContext";
 
 export default function Home(){
     const navigate = useNavigate();
-    const {tasks, setTasks} = useContext(UserContext);
-    const [usuario, setUsuario] = useState([])
-    const [dados, setDados] = useState({});
+    const [dados, setDados] = useState([]);
 
     const [user, setUser] = useState({})
    
-    const usuariu = localStorage.getItem("token")
 
-    const saldoUsuario = JSON.stringify(tasks)
-    localStorage.setItem("saldo", saldoUsuario)
-
-    const userDados = JSON.stringify(dados)
-    localStorage.setItem("dados", userDados)
-
-    console.log(usuariu)
+    const token = localStorage.getItem("token")
+    const dado = dados.entrada;
+    console.log(dado?.length)
     
     
     useEffect(()=>{
 
         const config = {
-            headers: {Authorization: `Bearer ${tasks.token? tasks.token : usuariu}`}
+            headers: {Authorization: `Bearer ${token}`}
         }
-        const URL = `http://localhost:5000/wallet`;
+        const URL = `http://localhost:5000/home`;
         const promise = axios.get(URL, config)
 
-        promise.then((response)=>{
-            setDados(response.data)
-            setUser(response.data.user)
-            localStorage.setItem("token", tasks.token)    
+        promise.then((res)=>{
+            setDados(res.data.registro)
+            setUser(res.data.user)
+            console.log(res.data)
 
         })
         promise.catch(err=>{
@@ -46,32 +39,8 @@ export default function Home(){
         })
     },[])
 
-    const extrato = dados.extract;
+    console.log(dados.entrada)
 
-    function dinheiro(){
-        return(
-            <>
-                {extrato?.map((extra, index)=>{
-                    const tipo = extra.tipo;
-                    const saldo = dados.cash?.cash
-                    console.log(saldo)
-                    return(
-                        <>  
-                            <div key={index}>
-                                <Extrato  tipo={tipo}>
-                                    <Descricao>
-                                        <h3>{`${extra.data }`} &nbsp;</h3>
-                                        <h1>{`${extra.descricao}`}</h1>
-                                    </Descricao>
-                                    <h2>{extra.valor}</h2>
-                                </Extrato>
-                            </div>
-                        </>
-                    );
-                })}
-            </>
-        );
-    }
     return(
         <>
             <Conteiner>
@@ -79,16 +48,37 @@ export default function Home(){
                     <h1>Olá, {user.nome}</h1>
                     <Saida>
                         <RiLogoutBoxRLine size={24} color="white" onClick={()=> {
-                            navigate(`/login`)
+                            navigate(`/`)
                         }}/>
                     </Saida>
                 </Cabecalho>
 
                 <Registros>
-                    {dados.dinheiro === true? 
+                    {dados.entrada?.length === 0? 
                     <Semsaldo>
                         <h1>Não há registros de entrada ou saída</h1>
-                    </Semsaldo>: dinheiro()
+                    </Semsaldo>: dados?.entrada?.map((e, index)=>{
+                                const data = e.data;
+                                const descricao = e.descricao;
+                                const valor = e.valor;
+                                const valorFormatado = valor.toLocaleString('pt-BR', { minimumFractionDigits: 2})
+                                const tipo = e.tipo;
+                                console.log(e)
+                          
+                                return(
+                                    <>  
+                                        <div key={index}>
+                                            <Extrato tipo={tipo} >
+                                                <Descricao>
+                                                    <h3>{`${data }`} &nbsp;</h3>
+                                                    <h1>{`${descricao}`}</h1>
+                                                </Descricao>
+                                                <h2>{valorFormatado}</h2>
+                                            </Extrato>
+                                        </div>
+                                    </>
+                                );
+                            })
                     }
                     <Saldo>
                         {dados.dinheiro === true?
@@ -102,14 +92,14 @@ export default function Home(){
                 </Registros>
                 <Opcoes>
                     <Movimentar onClick={()=>{
-                        navigate(`/wallet/positive`)
+                        navigate(`/nova-entrada`)
                     }}>
                         <BsPlusCircle size={22} color="white"/>
                         <h1>Nova <br></br> entrada</h1>
                     </Movimentar>
 
                     <Movimentar onClick={()=>{
-                        navigate(`/wallet/negative`)
+                        navigate(`/nova-saida`)
                         }}>
                         <img src={Menos} alt="menos" />
                         <h1>Nova <br></br>saída</h1>
@@ -143,7 +133,7 @@ const Extrato = styled.div`
     font-family: 'Raleway';
     font-size: 16px;
     h2{    
-        color:  ${({ tipo }) => tipo === "soma"? "#03AC00" : "#C70000"};
+        color:  ${({ tipo }) => tipo === "positivo"? "#03AC00" : "#C70000"};
     }
 `;
 

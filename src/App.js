@@ -6,6 +6,8 @@ import { useState } from "react";
 import Login from "./Components/Login"
 import Cadastro from "./Components/Cadastro";
 import Home from "./Components/Home";
+import Nova_entrada from "./Components/nova_entrada";
+import Nova_saida from "./Components/nova_saida";
 
 function App() {
   const [tasks, setTasks] = useState([])
@@ -18,6 +20,9 @@ function App() {
           <Route path="/" element={<Login/>}/>
           <Route path="/cadastro" element={<Cadastro/>}/>
           <Route path="/home" element={<Home/>}/>
+          <Route path="/nova-entrada" element={<Nova_entrada/>}/>
+          <Route path="/nova-saida" element={<Nova_saida/>}/>
+
         </Routes>
       </UserContext.Provider>
     </>
