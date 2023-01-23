@@ -117,6 +117,7 @@ const Descricao = styled.div`
     }
 `
 const Conteiner = styled.div`
+
     font-family: 'Raleway';
     display:flex;
     justify-content: center;
@@ -148,6 +149,8 @@ const Cabecalho = styled.div`
     }
 `;
 const Registros = styled.div`
+    position: relative;
+
     margin-top: 25px;
     width: 326px;
     height: 446px;
@@ -188,7 +191,6 @@ const Saida = styled.div`
     cursor:pointer;
 `
 const Saldo = styled.div`
-    position: fixed;
     font-family: 'Raleway';
     font-size: 17px;
     h1{
@@ -196,10 +198,13 @@ const Saldo = styled.div`
         line-height: 20px;
         font-weight: 700;
     }
+    position: absolute;
+
     display:flex;
     align-items:center;
     width: 306px;
     height:0px;
+    bottom: 20px;
     justify-content: space-between;
     margin-top:320px;
 `
